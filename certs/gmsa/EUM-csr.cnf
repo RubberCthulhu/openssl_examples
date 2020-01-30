@@ -1,0 +1,11 @@
+# openssl EMU certificate request configuration file
+
+[req] 
+prompt = no
+
+distinguished_name = dn-name
+[dn-name] 
+
+countryName		= DE
+organizationName	= RSP Test EUM
+commonName		= EUM Test 

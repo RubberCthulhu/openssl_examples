@@ -1,0 +1,14 @@
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+database = /home/alevandal/work/esim/openssl/chain/crl/index.txt
+crlnumber = /home/alevandal/work/esim/openssl/chain/crl/crl_number
+
+default_days = 365
+default_crl_days = 30
+default_md = default
+preserve = no
+
+[ crl_ext ]
+authorityKeyIdentifier=keyid:always,issuer:always

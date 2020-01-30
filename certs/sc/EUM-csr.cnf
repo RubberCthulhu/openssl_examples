@@ -1,0 +1,11 @@
+# openssl EMU certificate request configuration file
+
+[req] 
+prompt = no
+
+distinguished_name = dn-name
+[dn-name] 
+
+countryName		= RU
+organizationName	= SVYAZCOM
+commonName		= EUM Test 

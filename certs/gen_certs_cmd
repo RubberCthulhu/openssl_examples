@@ -1,0 +1,29 @@
+# CA SK NIST
+openssl ecparam -name prime256v1 -genkey -out SK_CI_SC_ECDSA_NIST.pem
+# CA SK BRP
+openssl ecparam -name brainpoolP256r1 -genkey -out SK_CI_SC_ECDSA_BRP.pem
+# CA CERT
+openssl req -config CI-csr.cnf -key SK_CI_SC_ECDSA_NIST.pem -new -x509 -days 365 -sha256 -set_serial 0987654321 -extensions extend -out CERT_CI_SC_ECDSA_NIST.pem
+
+# EUM SK NIST
+openssl ecparam -name prime256v1 -genkey -out SK_EUM_SC_ECDSA_NIST.pem
+# EUM CSR
+openssl req -new -nodes -sha256 -config EUM-csr.cnf -key SK_EUM_SC_ECDSA_NIST.pem -out CERT_EUM_SC_ECDSA_NIST.csr
+# EUM CERT
+openssl x509 -req -in CERT_EUM_SC_ECDSA_NIST.csr -CA CERT_CI_SC_ECDSA_NIST.pem -CAkey SK_CI_SC_ECDSA_NIST.pem -set_serial 0987654321 -days 365 -extfile EUM-ext.cnf -out CERT_EUM_SC_ECDSA_NIST.pem
+
+# EUICC SK NIST
+openssl ecparam -name prime256v1 -genkey -out SK_EUICC_SC_ECDSA_NIST.pem
+# EUICC CSR
+openssl req -new -nodes -sha256 -config eUICC-csr.cnf -key SK_EUICC_SC_ECDSA_NIST.pem -out CERT_EUICC_SC_ECDSA_NIST.csr
+# EUICC CERT
+openssl x509 -req -in CERT_EUICC_SC_ECDSA_NIST.csr -CA CERT_EUM_SC_ECDSA_NIST.pem -CAkey SK_EUM_SC_ECDSA_NIST.pem -set_serial 0987654321 -days 365 -extfile eUICC-ext.cnf -out CERT_EUICC_SC_ECDSA_NIST.pem
+
+# CA CRL
+touch index.txt
+echo 00 > crl_number
+openssl ca -gencrl -keyfile SK_CI_SC_ECDSA_NIST.pem -cert CERT_CI_SC_ECDSA_NIST.pem -config CI-crl.cnf -out CRL_CI_SC_ECDSA_NIST.pem
+openssl ca -revoke CERT_EUM_SC_ECDSA_NIST.pem -keyfile SK_CI_SC_ECDSA_NIST.pem -cert CERT_CI_SC_ECDSA_NIST.pem -config CI-crl.cnf
+
+# verify
+openssl verify -CAfile CERT_CI_SC_ECDSA_NIST.pem -untrusted CERT_EUM_SC_ECDSA_NIST.pem -crl_check -crl_check_all -CRLfile CRL_CI_SC_ECDSA_NIST.pem CERT_EUICC_SC_ECDSA_NIST.pem

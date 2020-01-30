@@ -1,0 +1,11 @@
+
+# openssl EUM certificate creation configuration file
+# 2017-01-31
+
+authorityKeyIdentifier=keyid, issuer
+subjectKeyIdentifier=hash
+keyUsage=critical, keyCertSign
+certificatePolicies=critical,2.23.146.1.2.1.2   #OID id-rspRole-eum
+subjectAltName=RID:2.999.5
+basicConstraints=critical,CA:TRUE, pathlen:0
+crlDistributionPoints=URI:http://ci.test.gsma.com/CRL-B.crl

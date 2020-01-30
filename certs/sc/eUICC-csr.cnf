@@ -1,0 +1,16 @@
+# openssl-eUICC.cnf
+
+[req]
+prompt = no
+
+distinguished_name  = dn-name
+ 
+[dn-name]
+countryName			= RU
+organizationName		= SVYAZCOM
+serialNumber                    = 89049032
+commonName			= Test eUICC
+
+
+
+

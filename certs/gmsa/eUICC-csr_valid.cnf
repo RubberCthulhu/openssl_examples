@@ -1,0 +1,19 @@
+# openssl-eUICC.cnf
+#
+# use: openssl req -new -nodes -sha256 -config eUICC-csr.cnf -key euiccPrKey.pem -out eUICC.csr
+#
+
+[req]
+prompt = no
+
+distinguished_name  = dn-name
+ 
+[dn-name]
+#countryName			= DE
+organizationName		= RSP Test EUM
+serialNumber                    = 89049032
+#commonName			= Test eUICC
+
+
+
+

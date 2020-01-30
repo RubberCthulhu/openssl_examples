@@ -1,0 +1,14 @@
+
+#eUICC certificate creation configuration
+#
+# use openssl x509 -req -in eUICC.csr -CA ..\EUM-cert.pem -CAkey ..\eumPrivKey.pem -set_serial 0x020000000000000001 -days 2915731 -sha256 -extfile euicc-ext.cnf -out eUICC-cert.pem 
+#
+
+authorityKeyIdentifier=keyid
+subjectKeyIdentifier=hash
+keyUsage = critical, digitalSignature
+certificatePolicies=critical,2.23.146.1.2.1.1  #OID id-rspRole-e
+
+
+
+
