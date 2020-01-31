@@ -1,7 +1,7 @@
-
+TARGETS = sign verify cert_verify verify_chain verify_chain2 store_verify_chain check_issued aes128cbc_encode aes128cbc_decode cmac parse_cert eckey_by_object_curve eckey_by_object_curve2 shared_secret priv2pub subject_altname x962
 LDFLAGS = -lssl -lcrypto
 
-all: sign verify cert_verify verify_chain verify_chain2 store_verify_chain check_issued aes128cbc_encode aes128cbc_decode cmac parse_cert eckey_by_object_curve eckey_by_object_curve2 shared_secret priv2pub subject_altname x962
+all: $(TARGETS)
 
 sign: openssl_sign.c openssl_utils.c
 	gcc -o $@ $^ $(LDFLAGS)
@@ -56,5 +56,5 @@ x962: openssl_x962.c openssl_utils.c
 
 .PHONY: clean all
 clean:
-	rm -Rf sign verify cert_verify verify_chain verify_chain2 store_verify_chain check_issued aes128cbc_encode aes128cbc_decode cmac parse_cert eckey_by_object_curve eckey_by_object_curve2 shared_secret priv2pub subject_altname x962
+	rm -Rf $(TARGETS)
 
