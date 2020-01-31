@@ -1,6 +1,9 @@
-TARGETS = sign verify cert_verify verify_chain verify_chain2 store_verify_chain check_issued aes128cbc_encode aes128cbc_decode cmac parse_cert eckey_by_object_curve eckey_by_object_curve2 shared_secret priv2pub subject_altname x962
+SRC = $(wildcard *.c)
+TARGET_MODULES = $(filter-out openssl_utils,$(SRC:.c=))
+TARGETS = $(TARGET_MODULES:openssl_%=%)
 LDFLAGS = -lssl -lcrypto
 
+.PHONY: all
 all: $(TARGETS)
 
 sign: openssl_sign.c openssl_utils.c
@@ -54,7 +57,7 @@ subject_altname: openssl_subject_altname.c openssl_utils.c
 x962: openssl_x962.c openssl_utils.c
 	gcc -o $@ $^ $(LDFLAGS)
 
-.PHONY: clean all
+.PHONY: clean
 clean:
-	rm -Rf $(TARGETS)
+	test -n "$(TARGETS)" && rm -Rf $(TARGETS)
 
