@@ -30,6 +30,9 @@ check_issued: openssl_check_issued.c openssl_utils.c
 aes128cbc_encode: openssl_aes128cbc_encode.c openssl_utils.c
 	gcc -o $@ $^ $(LDFLAGS)
 
+aes128cbc_encode_nopadding: openssl_aes128cbc_encode_nopadding.c openssl_utils.c
+	gcc -o $@ $^ $(LDFLAGS)
+
 aes128cbc_decode: openssl_aes128cbc_decode.c openssl_utils.c
 	gcc -o $@ $^ $(LDFLAGS)
 
